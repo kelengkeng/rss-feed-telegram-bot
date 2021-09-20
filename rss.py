@@ -3,14 +3,9 @@ import sys
 import feedparser
 from sql import db
 from time import sleep, time
-from dotenv import load_dotenv
 from pyrogram import Client, filters
 from pyrogram.errors import FloodWait
 from apscheduler.schedulers.background import BackgroundScheduler
-
-
-if os.path.exists("config.env"):
-    load_dotenv("config.env")
 
 
 try:
@@ -38,10 +33,12 @@ app = Client(":memory:", api_id=api_id, api_hash=api_hash, bot_token=bot_token)
 def create_feed_checker(feed_url):
     def check_feed():
         FEED = feedparser.parse(feed_url)
+        if len(FEED.entries) == 0:
+            return
         entry = FEED.entries[0]
         if entry.id != db.get_link(feed_url).link:
                        # ↓ Edit this message as your needs.
-            message = f"**{entry.title}**\n```{entry.link}```"
+            message = f"/mirror qb ```{entry.link}```"
             try:
                 app.send_message(log_channel, message)
                 db.update_link(feed_url, entry.id)
