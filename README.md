@@ -15,6 +15,9 @@ A bot to post messages to Telegram Groups or Channels from rss feed.
 - `INTERVAL` - Checking Interval in seconds. (optional)
 - `MAX_INSTANCES` - Max instances to be used while checking rss feed. (optional)
 
+### Deploying on Heroku
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 ### Deployment
 - Install requirements from [requirements.txt](./requirements.txt)
 ```
